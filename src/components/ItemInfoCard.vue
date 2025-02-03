@@ -26,8 +26,7 @@ import UiTitleSkeleton from './ui/UiTitleSkeleton.vue'
 <style scoped lang="scss">
 .item__info {
   padding: 18px 14px;
-  max-width: 236px;
-  width: 100%;
+  width: 236px;
   height: 500px;
   background-color: #262626;
   border-radius: 10px;
