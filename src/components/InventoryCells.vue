@@ -1,5 +1,10 @@
 <script setup lang="ts">
+import { useInventoryItem } from '@/stores/useInventoryItem'
 import InventoryCell from './InventoryCell.vue'
+import InventoryItem from './InventoryItem.vue'
+import { computed } from 'vue'
+
+const store = useInventoryItem()
 
 const getCornerClass = (index: number) => {
   if (index === 0) return 'corner-top-left'
@@ -8,16 +13,31 @@ const getCornerClass = (index: number) => {
   if (index === 24) return 'corner-bottom-right'
   return ''
 }
+
+const inventoryGrid = computed(() => {
+  const grid = Array(25).fill(undefined)
+  store.items.forEach((item, index) => {
+    if (index < 25) grid[index] = item
+  })
+
+  return grid
+})
 </script>
 
 <template>
   <div class="inventory__cells">
     <InventoryCell
-      v-for="(_, index) in 25"
+      v-for="(cell, index) in inventoryGrid"
       :key="index"
       :index="index"
       :class="getCornerClass(index)"
-    />
+      ><InventoryItem
+        v-if="cell"
+        :id="cell.$id"
+        :background-color="cell.backgroundColor"
+        :shadow-color="cell.shadowColor"
+        :quantity="cell.quantity"
+    /></InventoryCell>
   </div>
 </template>
 
