@@ -31,7 +31,7 @@ const isSelected = computed(() => props.selectedId === props.id)
 
 <style lang="scss">
 .inventory__item {
-  cursor: url('/public/clarity_cursor-hand-line.png'), auto;
+  cursor: url('/clarity_cursor-hand-line.png'), auto;
   position: relative;
   display: flex;
   justify-content: center;
@@ -53,7 +53,7 @@ const isSelected = computed(() => props.selectedId === props.id)
   width: 18px;
   height: 18px;
   font-size: 10px;
-  color: #ffff;
+  color: #ffffff;
   border: 1px solid #4d4d4d;
   border-radius: 4px 0 0 0;
   display: flex;
@@ -82,5 +82,9 @@ const isSelected = computed(() => props.selectedId === props.id)
 
 .selected {
   background-color: #2f2f2f;
+}
+
+.dragging {
+  cursor: url('/Cursor-2.png'), grabbing;
 }
 </style>

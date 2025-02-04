@@ -1,18 +1,27 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+
 import type { ItemValue } from '@/utils/types'
+
 import UiSkeleton from './ui/UiSkeleton.vue'
 import UiTextSkeleton from './ui/UiTextSkeleton.vue'
 import UiTitleSkeleton from './ui/UiTitleSkeleton.vue'
-import { useInventoryItem } from '@/stores/useInventoryItem'
 import UiButton from './ui/UiButton.vue'
+import InventoryItemDelete from './InventoryItemDelete.vue'
+
+import { useInventoryItem } from '@/stores/useInventoryItem'
 
 const props = defineProps<{ isOpen: boolean; item?: ItemValue }>()
 const store = useInventoryItem()
+
+const isDelete = ref(false)
+
+const onOpenDelete = () => (isDelete.value = !isDelete.value)
 </script>
 
 <template>
   <div class="inventory__sidebar" :class="{ 'inventory__sidebar-active': props.isOpen }">
-    <img @click="store.close" class="sidebar__close" src="/public/icons/Vector.svg" alt="" />
+    <img @click="store.close" class="sidebar__close" src="/icons/Vector.svg" alt="" />
     <div class="sidebar__item">
       <div class="item__wrapper">
         <div class="item__shadow" :style="{ backgroundColor: props.item?.shadowColor }"></div>
@@ -31,6 +40,7 @@ const store = useInventoryItem()
     </UiSkeleton>
     <hr style="margin-top: 20px" />
     <UiButton
+      @click="onOpenDelete"
       style="margin-top: 10px"
       width="220px"
       padding="11px 0"
@@ -39,6 +49,7 @@ const store = useInventoryItem()
       font-size="14px"
       >Удалить предмет</UiButton
     >
+    <InventoryItemDelete v-model:isDelete="isDelete" />
   </div>
 </template>
 

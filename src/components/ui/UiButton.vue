@@ -28,5 +28,6 @@ const props = defineProps<{
   text-align: center;
   border: none;
   border-radius: 8px;
+  cursor: url('/icons/Cursor-1.png'), auto;
 }
 </style>
