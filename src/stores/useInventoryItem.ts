@@ -5,7 +5,7 @@ import { computed, ref } from 'vue'
 export const useInventoryItem = defineStore('inventoryItem', () => {
   const selectedItem = ref<ItemValue | null>(null)
   const isOpen = ref(false)
-  const items = ref<ItemValue[]>([
+  const items = ref<(ItemValue | undefined)[]>([
     {
       id: '1',
       backgroundColor: '#7FAA65',

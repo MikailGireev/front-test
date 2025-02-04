@@ -1,7 +1,22 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const props = defineProps<{
+  index: number
+}>()
+
+const emit = defineEmits(['dragstart', 'drop'])
+
+const onDrop = () => {
+  emit('drop', props.index)
+}
+</script>
 
 <template>
-  <div class="inventory__cell">
+  <div
+    class="inventory__cell"
+    draggable="true"
+    @dragover.prevent
+    @drop="onDrop"
+  >
     <slot></slot>
   </div>
 </template>

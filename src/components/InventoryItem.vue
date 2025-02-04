@@ -9,12 +9,18 @@ const props = defineProps<{
   selectedId?: string | null
 }>()
 
+const emit = defineEmits(['drag-start'])
 
 const isSelected = computed(() => props.selectedId === props.id)
 </script>
 
 <template>
-  <div class="inventory__item" :class="{ selected: isSelected }">
+  <div
+    class="inventory__item"
+    :class="{ selected: isSelected }"
+    draggable="true"
+    @dragstart="emit('drag-start', props.id)"
+  >
     <div class="item__wrapper">
       <div class="item__shadow" :style="{ backgroundColor: props.shadowColor }"></div>
       <div class="item" :style="{ backgroundColor: props.backgroundColor }"></div>
