@@ -12,6 +12,9 @@
   height: 100px;
   border: 1px solid #4d4d4d;
   background-color: #262626;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .corner-top-left {

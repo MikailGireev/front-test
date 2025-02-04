@@ -3,6 +3,7 @@ import { useInventoryItem } from '@/stores/useInventoryItem'
 import InventoryCell from './InventoryCell.vue'
 import InventoryItem from './InventoryItem.vue'
 import { computed } from 'vue'
+import InventorySidebar from './InventorySidebar.vue'
 
 const store = useInventoryItem()
 
@@ -33,16 +34,21 @@ const inventoryGrid = computed(() => {
       :class="getCornerClass(index)"
       ><InventoryItem
         v-if="cell"
-        :id="cell.$id"
+        :id="cell.id"
         :background-color="cell.backgroundColor"
         :shadow-color="cell.shadowColor"
         :quantity="cell.quantity"
-    /></InventoryCell>
+        :selectedId="store.selectedItem?.id"
+        @click="store.selectItem(cell)"
+      />
+    </InventoryCell>
+    <InventorySidebar :isOpen="store.isOpen" :item="store.selectedItem ?? undefined" />
   </div>
 </template>
 
 <style scoped lang="scss">
 .inventory__cells {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(5, 105px);
   grid-template-rows: repeat(5, 100px);

@@ -1,8 +1,10 @@
 import type { ItemValue } from '@/utils/types'
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
 export const useInventoryItem = defineStore('inventoryItem', () => {
+  const selectedItem = ref<ItemValue | null>(null)
+  const isOpen = ref(false)
   const items = ref<ItemValue[]>([
     {
       id: '1',
@@ -24,5 +26,17 @@ export const useInventoryItem = defineStore('inventoryItem', () => {
     },
   ])
 
-  return { items }
+  const selectItem = (item: ItemValue) => {
+    isOpen.value = true
+    selectedItem.value = { ...item }
+  }
+
+  const close = () => {
+    isOpen.value = false
+    selectedItem.value = null
+  }
+
+  const selectedItemId = computed(() => selectedItem.value?.id)
+
+  return { items, selectItem, selectedItemId, selectedItem, isOpen, close }
 })

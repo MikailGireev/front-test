@@ -1,35 +1,58 @@
 <script setup lang="ts">
-import type { ItemValue } from '@/utils/types'
+import { computed } from 'vue'
 
-const props = defineProps<ItemValue>()
+const props = defineProps<{
+  id: string
+  backgroundColor: string
+  shadowColor: string
+  quantity: number
+  selectedId?: string | null
+}>()
+
+
+const isSelected = computed(() => props.selectedId === props.id)
 </script>
 
 <template>
-  <div class="item__wrapper">
-    <div class="item__shadow" :style="{ backgroundColor: props.shadowColor }"></div>
-    <div class="item" :style="{ backgroundColor: props.backgroundColor }"></div>
-    <span>{{ props.quantity }}</span>
+  <div class="inventory__item" :class="{ selected: isSelected }">
+    <div class="item__wrapper">
+      <div class="item__shadow" :style="{ backgroundColor: props.shadowColor }"></div>
+      <div class="item" :style="{ backgroundColor: props.backgroundColor }"></div>
+    </div>
+    <p class="item__quantity">{{ props.quantity }}</p>
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
+.inventory__item {
+  cursor: url('/public/clarity_cursor-hand-line.png'), auto;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
 .item__wrapper {
   position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   width: 48px;
   height: 48px;
+}
 
-  span {
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    bottom: -18px;
-    right: -26px;
-    border: 1px solid #4d4d4d;
-    color: #4d4d4d;
-  }
+.item__quantity {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  width: 18px;
+  height: 18px;
+  font-size: 10px;
+  color: #ffff;
+  border: 1px solid #4d4d4d;
+  border-radius: 4px 0 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .item__shadow {
@@ -48,6 +71,10 @@ const props = defineProps<ItemValue>()
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 0;
+  z-index: 2;
+}
+
+.selected {
+  background-color: #2f2f2f;
 }
 </style>
